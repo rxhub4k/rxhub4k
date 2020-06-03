@@ -32,6 +32,6 @@ jobs:
         echo Add other actions to build,
         echo test, and deploy your project.
     
-    - uses: OrangeLabs-moe/gradle-actions@v5.0-openjdk-14
+    - uses: OrangeLabs-moe/gradle-actions@v5.0-openjdk-11
       with:
         args: build
