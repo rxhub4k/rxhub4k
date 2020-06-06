@@ -26,5 +26,5 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
 
-    - name: Test
+    - name: Build
       run: ./gradlew build
