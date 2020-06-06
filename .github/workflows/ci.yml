@@ -7,28 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-
-#    - name: Set up JDK 1.11
-#      uses: actions/setup-java@v1
-#      with:
-#        java-version: 1.11
-#
-#    - name: Cache Gradle packages
-#      uses: actions/cache@v2
-#      with:
-#        path: ~/.gradle/caches
-#        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-#        restore-keys: ${{ runner.os }}-gradle
-
-    - name: Lint
-      run: ./gradlew ktlintCheck
-
   build:
     runs-on: ubuntu-latest
 
@@ -48,17 +26,5 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
 
-    - name: Assemble
-      run: ./gradlew assemble
-
-    - name: Assemble Success Badge
-      uses: RubbaBoy/BYOB@v1.1.0
-      with:
-        NAME: buildSuccess
-        LABEL: 'Build'
-        STATUS: ${{ steps.date.outputs.data }}
-        COLOR: 00EEFF
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Test
-      run: ./gradlew test
+      run: ./gradlew build
