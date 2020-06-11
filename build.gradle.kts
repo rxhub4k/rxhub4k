@@ -14,6 +14,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
+    implementation("io.projectreactor", "reactor-core", "3.3.6.RELEASE")
+    implementation("io.projectreactor.kotlin", "reactor-kotlin-extensions", "1.0.2.RELEASE")
+    implementation("com.fasterxml.jackson.module", "jackson-module-kotlin", "2.11.0")
     testImplementation("junit", "junit", "4.12")
 }
 
