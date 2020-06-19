@@ -1,0 +1,19 @@
+query PrList($owner: String!, $name: String!) {
+    repository(owner:$owner, name:$name) {
+        pullRequests(last: 5, states:[MERGED]) {
+            totalCount
+            pageInfo {
+                endCursor
+                hasNextPage
+                hasPreviousPage
+                startCursor
+            }
+            nodes {
+                title
+                url
+                mergedAt
+                viewerDidAuthor
+            }
+        }
+    }
+}
