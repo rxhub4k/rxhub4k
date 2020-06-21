@@ -26,5 +26,12 @@ jobs:
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
 
+    - name: Generate Types
+      run: |
+        ./gradlew downloadApolloSchema \
+          -Pcom.apollographql.apollo.endpoint=https://api.github.com/graphql \
+          -Pcom.apollographql.apollo.schema=src/main/graphql/com/nevinsjr/rxhubk/schema.json \
+          "-Pcom.apollographql.apollo.headers=Authorization=Bearer ${{ secrets.GITHUB_TOKEN }}"
+
     - name: Build
       run: ./gradlew build

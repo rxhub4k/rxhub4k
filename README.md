@@ -2,6 +2,7 @@
 A reactive GitHub client built for JVM apps that offers a functional API.
 
 ![Build](https://github.com/rxhub4k/rxhub4k/workflows/CI/badge.svg)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 ## Features
 **rxhub4k** is a reactive client for GitHub and, therefore, returns a stream for all requests.
@@ -37,6 +38,19 @@ When we open up for contributions, the following will be helpful in getting star
 * For contribution guidelines, please see [CONTRIBUTING](https://github.com/rxhub4k/rxhub4k/blob/master/CONTRIBUTING.md) for details regarding communication, pull requests, style, and test coverage.
 
 ### Building
+To build from the source:
+1. Clone the repository.
+1. Generate the schema:
+    ```
+    ./gradlew downloadApolloSchema \
+      -Pcom.apollographql.apollo.endpoint=https://api.github.com/graphql \
+      -Pcom.apollographql.apollo.schema=src/main/graphql/com/nevinsjr/rxhubk/schema.json \
+      "-Pcom.apollographql.apollo.headers=Authorization=Bearer <Your GitHub Access token here>"
+    ```
+1. Build:
+    ```
+    ./gradlew build
+    ```
 
 ## Versioning
 We subscribe to [Semantic Versioning](https://semver.org/) for versioning. For the versions available, please see the [releases](https://github.com/rxhub4k/rxhub4k/releases) on this repository.
