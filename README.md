@@ -38,6 +38,19 @@ When we open up for contributions, the following will be helpful in getting star
 * For contribution guidelines, please see [CONTRIBUTING](https://github.com/rxhub4k/rxhub4k/blob/master/CONTRIBUTING.md) for details regarding communication, pull requests, style, and test coverage.
 
 ### Building
+To build from the source:
+1. Clone the repository.
+1. Generate the schema:
+    ```
+    ./gradlew downloadApolloSchema \
+      -Pcom.apollographql.apollo.endpoint=https://api.github.com/graphql \
+      -Pcom.apollographql.apollo.schema=src/main/graphql/com/nevinsjr/rxhubk/schema.json \
+      "-Pcom.apollographql.apollo.headers=Authorization=Bearer <Your GitHub Access token here>"
+    ```
+1. Build:
+    ```
+    ./gradlew build
+    ```
 
 ## Versioning
 We subscribe to [Semantic Versioning](https://semver.org/) for versioning. For the versions available, please see the [releases](https://github.com/rxhub4k/rxhub4k/releases) on this repository.
