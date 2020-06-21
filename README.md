@@ -2,6 +2,7 @@
 A reactive GitHub client built for JVM apps that offers a functional API.
 
 ![Build](https://github.com/rxhub4k/rxhub4k/workflows/CI/badge.svg)
+[![ktlint](https://img.shields.io/badge/code%20style-%E2%9D%A4-FF4081.svg)](https://ktlint.github.io/)
 
 ## Features
 **rxhub4k** is a reactive client for GitHub and, therefore, returns a stream for all requests.
