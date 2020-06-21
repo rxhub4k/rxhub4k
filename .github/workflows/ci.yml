@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, apollo ]
   pull_request:
     branches: [ master ]
 
@@ -25,6 +25,13 @@ jobs:
         path: ~/.gradle/caches
         key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
         restore-keys: ${{ runner.os }}-gradle
+
+    - name: Generate Types
+      run: |
+        ./gradlew downloadApolloSchema \
+          -Pcom.apollographql.apollo.endpoint=https://api.github.com/graphql \
+          -Pcom.apollographql.apollo.schema=src/main/graphql/com/nevinsjr/rxhubk/schema.json \
+          "-Pcom.apollographql.apollo.headers=Authorization=Bearer ${{ secrets.GITHUB_TOKEN }}"
 
     - name: Build
       run: ./gradlew build

@@ -30,6 +30,12 @@ apollo {
     generateKotlinModels.set(true)
 }
 
+ktlint {
+    filter {
+        exclude { element -> element.file.path.contains("generated/") }
+    }
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
