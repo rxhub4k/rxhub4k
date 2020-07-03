@@ -16,7 +16,9 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    testImplementation("junit", "junit", "4.12")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
+    testImplementation("io.mockk:mockk:1.10.0")
     implementation("com.apollographql.apollo:apollo-runtime:2.2.1")
     implementation("com.apollographql.apollo:apollo-coroutines-support:2.2.1")
     implementation("com.apollographql.apollo:apollo-rx3-support:2.2.1")
@@ -36,6 +38,10 @@ ktlint {
     }
 }
 
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+}
+
 tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "1.8"
@@ -44,4 +50,6 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
+
+
 }
