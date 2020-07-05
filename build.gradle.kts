@@ -19,6 +19,7 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.2")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.7.2")
     implementation("com.apollographql.apollo:apollo-runtime:2.2.1")
     implementation("com.apollographql.apollo:apollo-coroutines-support:2.2.1")
     implementation("com.apollographql.apollo:apollo-rx3-support:2.2.1")
@@ -50,6 +51,4 @@ tasks {
     compileTestKotlin {
         kotlinOptions.jvmTarget = "1.8"
     }
-
-
 }

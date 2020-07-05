@@ -1,8 +1,9 @@
 package com.nevinsjr.rxhub4k.client
 
 import com.apollographql.apollo.ApolloClient
-import com.nevinsjr.rxhub4k.client.interceptors.AuthorizationInterceptor
-import okhttp3.OkHttpClient
+import com.nevinsjr.rxhub4k.client.builders.ExecutionContext
+import com.nevinsjr.rxhub4k.client.builders.getRxHubApolloClientBuilder
+import com.nevinsjr.rxhub4k.client.builders.getRxHubHttpClientBuilder
 
 /**
  * The entry point for the library, offering an API for GitHub queries
@@ -19,14 +20,21 @@ class RxHubClient internal constructor(
          *                  will default to public GitHub.
          */
         fun build(oauthToken: String, serverUrl: String = "https://api.github.com/graphql"): RxHubClient {
-            val okHttpClient = OkHttpClient.Builder()
-                    .addInterceptor(AuthorizationInterceptor("Bearer $oauthToken"))
-                    .build()
 
-            val apolloClient = ApolloClient.builder()
-                    .serverUrl(serverUrl)
-                    .okHttpClient(okHttpClient)
-                    .build()
+            val okHttpClient = getRxHubHttpClientBuilder(oauthToken).build()
+            val apolloClient = getRxHubApolloClientBuilder(serverUrl, okHttpClient).build()
+
+            return RxHubClient(apolloClient)
+        }
+
+        fun build(
+            oauthToken: String,
+            serverUrl: String = "https://api.github.com/graphql",
+            executionContext: ExecutionContext
+        ): RxHubClient {
+
+            val okHttpClient = getRxHubHttpClientBuilder(oauthToken, executionContext.executorService).build()
+            val apolloClient = getRxHubApolloClientBuilder(serverUrl, okHttpClient, executionContext.executor).build()
 
             return RxHubClient(apolloClient)
         }

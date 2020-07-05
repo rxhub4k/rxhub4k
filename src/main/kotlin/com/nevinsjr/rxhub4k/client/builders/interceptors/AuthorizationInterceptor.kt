@@ -1,4 +1,4 @@
-package com.nevinsjr.rxhub4k.client.interceptors
+package com.nevinsjr.rxhub4k.client.builders.interceptors
 
 import okhttp3.Interceptor
 import okhttp3.Response
