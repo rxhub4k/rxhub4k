@@ -1,6 +1,6 @@
-query PrList($owner: String!, $name: String!) {
+query RepositoryPullRequest($owner: String!, $name: String!, $last: Int, $states: [PullRequestState!]) {
     repository(owner:$owner, name:$name) {
-        pullRequests(last: 5, states:[MERGED]) {
+        pullRequests(last:$last, states:$states) {
             totalCount
             pageInfo {
                 endCursor
