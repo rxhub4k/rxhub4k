@@ -27,6 +27,13 @@ class RxHubClient internal constructor(
             return RxHubClient(apolloClient)
         }
 
+        /**
+         * Static factory for the RxHubClient
+         * @param oauthToken The GitHub-issued token the client should use for authentication.
+         * @param serverUrl The URL of the GitHub server.  If none is provided, the config
+         *                  will default to public GitHub.
+         * @param executionContext A custom thread context in which to run the client.
+         */
         fun build(
             oauthToken: String,
             serverUrl: String = "https://api.github.com/graphql",
