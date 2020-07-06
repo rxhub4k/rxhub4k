@@ -37,7 +37,14 @@ RxHub4k compiles schema types from the latest version of the GitHub schema at bu
 ### Making a Request
 #### RxJava
 ```kotlin
-rxHubClient.rx3query(PrListQuery("Repo Owner", "Repo Name"))
+val query = RepositoryPullRequestQuery(
+    "rxhub4k",
+    "rxhub4k",
+    Input.optional(4) ,
+    Input.optional(listOf(PullRequestState.MERGED))
+)
+
+rxHubClient.rx3query(query)
     .map { data -> data?.repository?.pullRequests?.nodes?.map { it } }
     .subscribe { it?.forEach(::println) }
 ```

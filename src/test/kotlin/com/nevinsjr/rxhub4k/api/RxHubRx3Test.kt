@@ -1,7 +1,7 @@
 package com.nevinsjr.rxhub4k.api
 
 import com.apollographql.apollo.api.toJson
-import com.nevinsjr.rxhub4k.PullRequest.PrListQuery
+import com.nevinsjr.rxhub4k.Repository.RepositoryPullRequestQuery
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutor
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutorService
 import com.nevinsjr.rxhub4k.client.RxHubClient
@@ -15,11 +15,11 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
-val PR_LIST = PrListQuery.Data(
-        PrListQuery.Repository(
-                pullRequests = PrListQuery.PullRequests(
+val PR_LIST = RepositoryPullRequestQuery.Data(
+        RepositoryPullRequestQuery.Repository(
+                pullRequests = RepositoryPullRequestQuery.PullRequests(
                         totalCount = 0,
-                        pageInfo = PrListQuery.PageInfo(
+                        pageInfo = RepositoryPullRequestQuery.PageInfo(
                                 endCursor = null,
                                 hasNextPage = false,
                                 hasPreviousPage = false,
@@ -60,7 +60,7 @@ class RxHubRx3Test {
     @Test
     fun query_returnsDataFromResponse() {
         // Arrange
-        val query = PrListQuery("someOwner", "someName")
+        val query = RepositoryPullRequestQuery("someOwner", "someName")
         mockServer.enqueue(MockResponse().setBody(PR_LIST.toJson()))
 
         // Act

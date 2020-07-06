@@ -5,7 +5,6 @@ import java.util.concurrent.ExecutorService
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
 
-
 /**
  * Factory function that encapsulates the need for an auth-enabled client.
  */
