@@ -20,9 +20,11 @@ dependencies {
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.2")
     testImplementation("io.mockk:mockk:1.10.0")
     testImplementation("com.squareup.okhttp3:mockwebserver:4.7.2")
+    testImplementation("io.projectreactor:reactor-test:3.3.7.RELEASE")
     implementation("com.apollographql.apollo:apollo-runtime:2.2.1")
     implementation("com.apollographql.apollo:apollo-coroutines-support:2.2.1")
     implementation("com.apollographql.apollo:apollo-rx3-support:2.2.1")
+    implementation("io.projectreactor:reactor-core:3.3.7.RELEASE")
 }
 
 configure<JavaPluginConvention> {
