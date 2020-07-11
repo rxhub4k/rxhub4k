@@ -1,7 +1,6 @@
 package com.nevinsjr.rxhub4k.api
 
 import com.apollographql.apollo.api.toJson
-import com.apollographql.apollo.exception.ApolloHttpException
 import com.nevinsjr.rxhub4k.Repository.RepositoryPullRequestQuery
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutor
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutorService
@@ -10,12 +9,12 @@ import com.nevinsjr.rxhub4k.client.builders.ExecutionContext
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.AfterAll
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import reactor.test.StepVerifier
 
-class RxHubRx3Test {
+class RxHubReactorTest {
 
     companion object {
         private lateinit var mockServer: MockWebServer
@@ -34,7 +33,7 @@ class RxHubRx3Test {
         }
     }
 
-    val prListNoResults = RepositoryPullRequestQuery.Data(
+    private val prListNoResults = RepositoryPullRequestQuery.Data(
             RepositoryPullRequestQuery.Repository(
                     pullRequests = RepositoryPullRequestQuery.PullRequests(
                             totalCount = 0,
@@ -64,14 +63,13 @@ class RxHubRx3Test {
         mockServer.enqueue(MockResponse().setBody(prListNoResults.toJson()))
 
         // Act
+        val queryStream = rxHubClient.reactorQuery(query)
+
         // Assert
-        rxHubClient.rx3query(query).test()
-            .assertNoErrors()
-            .assertComplete()
-            .assertValue {
-                assertEquals(prListNoResults, it)
-                true
-            }
+        StepVerifier.create(queryStream)
+            .expectNext(prListNoResults)
+            .expectComplete()
+            .verify()
     }
 
     @Test
@@ -81,9 +79,11 @@ class RxHubRx3Test {
         mockServer.enqueue(MockResponse().setResponseCode(401))
 
         // Act
+        val queryStream = rxHubClient.reactorQuery(query)
+
         // Assert
-        rxHubClient.rx3query(query).test()
-                .assertError(ApolloHttpException::class.java)
-                .assertNotComplete()
+        StepVerifier.create(queryStream)
+                .expectError()
+                .verify()
     }
 }
