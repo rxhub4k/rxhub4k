@@ -1,6 +1,7 @@
 package com.nevinsjr.rxhub4k.api
 
 import com.apollographql.apollo.api.toJson
+import com.apollographql.apollo.exception.ApolloHttpException
 import com.nevinsjr.rxhub4k.Repository.RepositoryPullRequestQuery
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutor
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutorService
@@ -71,5 +72,18 @@ class RxHubRx3Test {
                 assertEquals(prListNoResults, it)
                 true
             }
+    }
+
+    @Test
+    fun query_whenError_bubblesError() {
+        // Arrange
+        val query = RepositoryPullRequestQuery("someOwner", "someName")
+        mockServer.enqueue(MockResponse().setResponseCode(401))
+
+        // Act
+        // Assert
+        rxHubClient.rx3query(query).test()
+                .assertError(ApolloHttpException::class.java)
+                .assertNotComplete()
     }
 }

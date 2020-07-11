@@ -71,4 +71,19 @@ class RxHubReactorTest {
             .expectComplete()
             .verify()
     }
+
+    @Test
+    fun query_whenError_bubblesError() {
+        // Arrange
+        val query = RepositoryPullRequestQuery("someOwner", "someName")
+        mockServer.enqueue(MockResponse().setResponseCode(401))
+
+        // Act
+        val queryStream = rxHubClient.reactorQuery(query)
+
+        // Assert
+        StepVerifier.create(queryStream)
+                .expectError()
+                .verify()
+    }
 }

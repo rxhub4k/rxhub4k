@@ -31,7 +31,7 @@ RxHub4k authenticates with the GitHub API with a GitHub-issued oauth token.  To 
 ```kotlin
 val rxHubClient = RxHubClient.build("GitHub OAuth Token")
 ```
-###Schema
+### Schema
 RxHub4k compiles schema types from the latest version of the GitHub schema at build time.  The following strongly-typed queries are available:
 
 ### Making a Request
