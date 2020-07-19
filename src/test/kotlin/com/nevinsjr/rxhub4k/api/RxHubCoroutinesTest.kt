@@ -7,11 +7,13 @@ import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutor
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutorService
 import com.nevinsjr.rxhub4k.client.RxHubClient
 import com.nevinsjr.rxhub4k.client.builders.ExecutionContext
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.jupiter.api.*
+import java.lang.AssertionError
 
 class RxHubCoroutinesTest {
     companion object {
@@ -77,10 +79,12 @@ class RxHubCoroutinesTest {
         // Act
         // Assert
         rxHubClient.coroutinesFlowQuery(query)
-                .collect {
-                    
+                .catch {
+                    AssertionError(it)
                 }
-                .assertError(ApolloHttpException::class.java)
-                .assertNotComplete()
+                .collect {
+                    // we shouldn't reach this point
+                    Assertions.fail()
+                }
     }
 }
