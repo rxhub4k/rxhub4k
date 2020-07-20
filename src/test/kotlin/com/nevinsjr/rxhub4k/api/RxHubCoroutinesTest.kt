@@ -1,19 +1,22 @@
 package com.nevinsjr.rxhub4k.api
 
 import com.apollographql.apollo.api.toJson
-import com.apollographql.apollo.exception.ApolloHttpException
 import com.nevinsjr.rxhub4k.Repository.RepositoryPullRequestQuery
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutor
 import com.nevinsjr.rxhub4k.`test-utils`.getImmediateExecutorService
 import com.nevinsjr.rxhub4k.client.RxHubClient
 import com.nevinsjr.rxhub4k.client.builders.ExecutionContext
+import java.lang.AssertionError
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
-import org.junit.jupiter.api.*
-import java.lang.AssertionError
+import org.junit.jupiter.api.AfterAll
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 class RxHubCoroutinesTest {
     companion object {
