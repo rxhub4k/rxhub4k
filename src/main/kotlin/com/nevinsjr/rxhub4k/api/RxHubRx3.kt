@@ -10,4 +10,4 @@ import io.reactivex.rxjava3.core.Observable
  * Perform a graphql query and emit the returned data on a RxJava Observable.
  */
 fun <D : Operation.Data, T, V : Operation.Variables> RxHubClient.rx3query(query: Query<D, T, V>): Observable<T?> =
-        this.apolloClient.rxQuery(query).map { it.data }
+    this.apolloClient.rxQuery(query).map { it.data }
