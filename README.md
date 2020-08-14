@@ -61,6 +61,19 @@ rxHubClient.reactorQuery(query)
     .map { data -> data?.repository?.pullRequests?.nodes?.map { it } }
     .subscribe { it?.forEach(::println) }
 ```
+#### Coroutines
+```kotlin
+val query = RepositoryPullRequestQuery(
+    "rxhub4k",
+    "rxhub4k",
+    Input.optional(4) ,
+    Input.optional(listOf(PullRequestState.MERGED))
+)
+
+rxHubClient.coroutinesFlowQuery(query)
+        .map { data -> data?.repository?.pullRequests?.nodes?.map { it } }
+        .collect { it?.forEach(::println) }
+```
 
 ## Contributing
 The project is not quite ready for contribution just yet.  Check back soon!
