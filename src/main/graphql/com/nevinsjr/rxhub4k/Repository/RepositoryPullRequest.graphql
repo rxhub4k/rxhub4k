@@ -13,6 +13,9 @@ query RepositoryPullRequest($owner: String!, $name: String!, $last: Int, $states
                 url
                 mergedAt
                 viewerDidAuthor
+                comments {
+                    totalCount
+                }
             }
         }
     }
